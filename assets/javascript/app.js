@@ -21,7 +21,9 @@ function shuffle(array) {
 var game = {
 
     infoObjects: [],
+    timer: null,
     displayedInfo: null,
+    seconds: 30,
 
     allInfoObjects: [
         {
@@ -37,6 +39,31 @@ var game = {
             fakeAnswers: ["42", "42", "42"]
         }
     ],
+
+    clearTimer: function () {
+        this.seconds = 30;
+        $("#seconds").text(this.seconds);
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
+    },
+
+    countdown: function () {
+        game.seconds--;
+        $("#seconds").text(game.seconds);
+    },
+
+    showNextQuestion: function () {
+        $("#question-choices").show();
+        if (this.infoObjects.length > 0) {
+            console.log("Test: " + this.infoObjects[0]);
+            this.updateWithInfo(this.infoObjects.shift());
+            this.timer = setInterval(this.countdown, 1000);
+        } else {
+            // TODO: Show the end of game screen and add a reset button
+        }
+    },
 
     infoObject: function (question, answer, answerImage, fakeAnswers) {
         return {
@@ -73,13 +100,14 @@ var game = {
             this.infoObjects.push(shuffledInfoObjects[i]);
         }
 
-        console.log("Test: " + this.infoObjects[0]);
-        this.updateWithInfo(this.infoObjects.shift());
-
         var self = this;
         $(".answer").on("click", function (event) {
             $("#question-choices").hide();
             $("#question-image").show();
+            self.clearTimer();
+            setTimeout(function () {
+                self.showNextQuestion();
+            }.bind(self), 1000);
             console.log(event);
             var clickedText = $(this).text();
             if (clickedText == self.displayedInfo.answer) {
@@ -95,4 +123,10 @@ var game = {
 window.onload = function (event) {
     console.log("window.onload");
     game.newGame()
+    $("#question-choices").hide();
+    $("#question-image").hide();
+    $("#start-game").on("click", function (event) {
+        $(this).hide();
+        game.showNextQuestion()
+    });
 }
