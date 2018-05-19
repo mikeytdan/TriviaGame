@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Trivia</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/javascript/app.js"></script>
+</head>
+
+<body>
+    <div class="container px-0 bg-info text-center">
+        <div id="game">
+            <h1 id="game-title">Trivia Game!</h1>
+            <div class="countdown">
+                Time Remaining:
+                <span id="seconds">30</span> seconds
+            </div>
+            <div id="question-choices" class="question-content">
+                <!-- hi -->
+                <div id="question" class="question-item my-0">Question</div>
+                <div id="answer-1" class="question-item answer my-0">Answer 1</div>
+                <div id="answer-2" class="question-item answer my-0">Answer 2</div>
+                <div id="answer-3" class="question-item answer my-0">Answer 3</div>
+                <div id="answer-4" class="question-item answer my-0">Answer 4</div>
+            </div>
+            <div id="question-image" class="question-content">
+                <div id="result" class="">Correct!</div>
+                <div id="answer-text" class="">The correct answer was 42!</div>
+                <img id="answer-image" class="" src="">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
