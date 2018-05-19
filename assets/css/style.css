@@ -2,13 +2,35 @@ html, body {
     height: 95%;
 }
 
+* {
+    color: white;
+}
+
+button {
+    color: black;
+}
+
+body {
+    background-image: url(../images/space.png);
+    background-repeat: repeat; 
+    background-attachment: fixed;
+}
+
 #game {
-    position: relative;
     height: 100%;
 }
 
 #game-title {
     font-size: 60px;
+}
+#question {
+    font-size: 48px;
+}
+
+#countdown {
+    height: 200px;
+    font-size: 36px;
+    padding-top: 60px;
 }
 
 #answer-image {
@@ -16,25 +38,12 @@ html, body {
     width: 100%;
     max-width: 600px;
     padding: 20px;
-    border-radius: 40px;
-}
-
-.container {
-    margin-top: 2.5%;
-    margin-bottom: 2.5%;
-    height: 600px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 8px;
+    object-fit: scale-down;
 }
 
 .question-content {
-    position: absolute;
     width: 100%;
-    bottom: 0;
     text-align: center;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
 }
 
 .question-item {
@@ -45,13 +54,4 @@ html, body {
 
 .question-content .answer:hover {
     background-color: lightskyblue;
-}
-
-.question-content .answer:last-child {
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
-
-.answer {
-    /* background-color: lightskyblue; */
 }
