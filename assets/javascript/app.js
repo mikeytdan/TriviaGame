@@ -24,6 +24,8 @@ var game = {
     timer: null,
     displayedInfo: null,
     seconds: 30,
+    correct: 0,
+    incorrect: 0,
 
     allInfoObjects: [
         {
@@ -52,17 +54,28 @@ var game = {
     countdown: function () {
         game.seconds--;
         $("#seconds").text(game.seconds);
+        if (game.seconds <= 0) {
+
+        }
     },
 
     showNextQuestion: function () {
-        $("#question-choices").show();
+        $("#question-image").hide();
         if (this.infoObjects.length > 0) {
+            $("#question-choices").show();
             console.log("Test: " + this.infoObjects[0]);
             this.updateWithInfo(this.infoObjects.shift());
             this.timer = setInterval(this.countdown, 1000);
         } else {
+            this.showEndGame()
             // TODO: Show the end of game screen and add a reset button
         }
+    },
+
+    showEndGame: function () {
+        $("#end-game").show();
+        $("#correct").text(this.correct);
+        $("#incorrect").text(this.incorrect);
     },
 
     infoObject: function (question, answer, answerImage, fakeAnswers) {
@@ -91,15 +104,24 @@ var game = {
         console.log(this.displayedInfo);
     },
 
+    showQuestionImage: function() {
+        // TODO: Move part of the setup logic here
+    },
+
     newGame: function () {
+        this.correct = 0;
+        this.incorrect = 0;
         this.infoObjects = [];
         var shuffledInfoObjects = shuffle(this.allInfoObjects);
         console.log("Test1: " + shuffledInfoObjects.length);
-        for (var i = 0; i < 5; i++) {
+        var count = this.allInfoObjects.length > 5 ? 5 : this.allInfoObjects.length;
+        for (var i = 0; i < count; i++) {
             // Add the first 5 shuffled info objects to `infoObjects`
             this.infoObjects.push(shuffledInfoObjects[i]);
         }
+    },
 
+    setup: function() {
         var self = this;
         $(".answer").on("click", function (event) {
             $("#question-choices").hide();
@@ -112,21 +134,29 @@ var game = {
             var clickedText = $(this).text();
             if (clickedText == self.displayedInfo.answer) {
                 $("#result").html("<b>" + clickedText + "</b> is <b>correct!</b>");
+                self.correct++;
             } else {
                 $("#result").html("<b>" + clickedText + "</b> is <b>wrong!</b>");
+                self.incorrect++;
             }
         });
-    },
+    }
 
 };
 
 window.onload = function (event) {
     console.log("window.onload");
-    game.newGame()
+    game.setup();
+    $("#end-game").hide();
     $("#question-choices").hide();
     $("#question-image").hide();
     $("#start-game").on("click", function (event) {
         $(this).hide();
+        game.newGame();
         game.showNextQuestion()
+    });
+    $("#end-game").on("click", function (event) {
+        $(this).hide();
+        $("#start-game").show();
     });
 }
